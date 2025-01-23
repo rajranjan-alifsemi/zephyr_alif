@@ -213,5 +213,5 @@ include(${COMMON_ZEPHYR_LINKER_DIR}/debug-sections.cmake)
 
 dt_comp_path(paths COMPATIBLE "zephyr,memory-region")
 foreach(path IN LISTS paths)
-  zephyr_linker_dts_section(PATH ${path})
+  zephyr_linker_dts_section(PATH ${path} LMA ROM_REGION)
 endforeach()
