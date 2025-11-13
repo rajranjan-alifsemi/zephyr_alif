@@ -39,6 +39,7 @@ pipeline {
             steps {
                 cleanWs()
                 echo "⏳ Checking out '${REPO_NAME}' repo..."
+                echo "Building branch: [${env.BRANCH_NAME}] [${env.GIT_BRANCH}] [${env.CHANGE_BRANCH}] [${env.CHANGE_TARGET}]"
 
                 dir("${REPO_NAME}") {
                     checkout scm
@@ -63,6 +64,7 @@ pipeline {
                         script: '''#!/bin/bash
                             set -xe
                             cd ${REPO_NAME}
+                            echo "[${BRANCH_NAME}], [${GIT_BRANCH}], [${CHANGE_BRANCH}], [${CHANGE_TARGET}]"
                             git fetch origin refs/heads/${CHANGE_TARGET}:refs/remotes/origin/${CHANGE_TARGET}
                             commitCnt=$(git rev-list --count origin/${CHANGE_TARGET}..HEAD)
                             commits=$(git log -n ${commitCnt} --pretty=format:"%H")
